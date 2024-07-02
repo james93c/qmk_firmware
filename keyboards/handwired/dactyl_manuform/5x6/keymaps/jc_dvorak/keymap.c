@@ -1,12 +1,20 @@
 #include QMK_KEYBOARD_H
 
+// define names for layers
 #define DVORAK 0
 #define QWERTY 1
 #define FUNCTION 2
 
+// shorthand to keep grid spacing
 #define DVK DVORAK
 #define QTY QWERTY
 #define FNC FUNCTION
+
+// custom key code defs
+#define CC_PLUS LSFT(KC_EQL)
+#define CC_PIPE LSFT(KC_BSLS)
+#define CC_LBRA LSFT(KC_LBRC)
+#define CC_RBRA LSFT(KC_RBRC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[DVORAK] = LAYOUT_5x6(
@@ -18,6 +26,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_BSPC,KC_SPC,                         KC_ENT, KC_DEL,
                                                 KC_EQL, KC_LCTL,        KC_LGUI,KC_LBRC,
                                                 KC_BSLS,MO(FNC),        KC_LALT,KC_RBRC
+                                        // MO(FNC),KC_SPC,                         KC_ENT, KC_DEL,
+                                        //         KC_BSPC,KC_LCTL,        KC_LGUI,KC_LBRC,
+                                        //         KC_DEL, KC_ENT,         KC_LALT,KC_RBRC
     ),
 	[QWERTY] = LAYOUT_5x6(
         KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                           KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_F12,
@@ -26,18 +37,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,KC_LCTL,KC_X,   KC_C,   KC_V,   KC_DOT,                         KC_N,   KC_M,   KC_T,   KC_G,   KC_Z,   KC_LSFT,
                         KC_LEFT,KC_RGHT,                                                        KC_UP,  KC_DOWN,
                                         KC_BSPC,KC_SPC,                         KC_ENT, KC_DEL,
-                                                KC_TRNS,KC_LCTL,        KC_LGUI,KC_COMM,
-                                                KC_TRNS,KC_TRNS,        TG(QTY),  KC_DOT
+                                                _______,KC_LCTL,        KC_LGUI,KC_COMM,
+                                                _______,_______,        TG(QTY),KC_DOT
     ),
 	[FUNCTION] = LAYOUT_5x6(
         KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,                          KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+        _______,KC_PGUP,KC_HOME,KC_UP,  KC_END, _______,                        _______,CC_PLUS,CC_PIPE,CC_LBRA,CC_RBRA,_______,
+        _______,KC_PGDN,KC_LEFT,KC_DOWN,KC_RGHT,KC_ENT,                         _______,KC_EQL, KC_BSLS,KC_LBRC,KC_RBRC,_______,
+        _______,_______,_______,_______,_______,_______,                        _______,_______,_______,_______,_______,_______,
+
                         KC_HOME,KC_END,                                                         KC_PGUP,KC_PGDN,
-                                        KC_TRNS,KC_TRNS,                        KC_TRNS,KC_TRNS,
-                                                KC_TRNS,KC_TRNS,        KC_TRNS,KC_TRNS,
-                                                KC_TRNS,KC_TRNS,        TG(QTY),  KC_TRNS
+                                        _______,_______,                        _______,_______,
+                                                _______,_______,        _______,_______,
+                                                _______,_______,        TG(QTY), _______
     )
 };
 
