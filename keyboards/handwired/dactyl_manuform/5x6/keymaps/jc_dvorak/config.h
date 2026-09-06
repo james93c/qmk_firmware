@@ -26,3 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    half can't tell it should be the slave and wrongly acts as master (silent
    slave). Force robust USB-based master/slave detection. */
 #define SPLIT_USB_DETECT
+
+/* Shorter detection window so the slave half wakes up sooner on plug-in.
+   Safe only because of the watchdog below: on a host reboot the USB half
+   can time out before the host enumerates it and wrongly become a slave;
+   the watchdog reboots any slave that hears nothing from a master so
+   detection is retried until the host is actually up. */
+#define SPLIT_USB_TIMEOUT 1000
+#define SPLIT_WATCHDOG_ENABLE
